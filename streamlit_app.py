@@ -169,5 +169,42 @@ right_column2.plotly_chart(fig_col_revenu_brut, use_container_width=True)
 
     
     
+# Cartes
+
+st.header("CA par ville")
+
+#Calcul la chiffre d'affaires total par ville 
+
+CA_par_ville = df_selection.groupby(by=["Villes"])[["Chiffre_d'affaires"]].sum().reset_index() 
+
+#Recupérer latitude, longitude, villes, CA dans une liste 
+list = list(zip(df_selection["Latitude_Ville"], df_selection["Longitude_Ville"], df_selection["Villes"]))
+
+CENTER = (46, 2.18883335) # lat, long de la france 
+map = folium.Map(location=CENTER, zoom_start =6)
+
+#Markers 
+
+for(lat, lng, ville), ca in zip(list, CA_par_ville["Chiffre_d'affaires"]):
+    folium.Marker(
+        [lat, lng],
+        popup=f"{ville}: {ca}€",
+        tooltip="CHIFFRE D'AFFAIRES"
+    ).add_to(map)
     
+
+    
+    
+st_folium(map, width =725) # afficher la carte
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            header {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """ 
+st.markdown(hide_st_style, unsafe_allow_html= True) 
+
+# pour lancer l'appli en local 
 
