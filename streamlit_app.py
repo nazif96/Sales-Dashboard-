@@ -192,7 +192,6 @@ for(lat, lng, ville), ca in zip(list, CA_par_ville["Chiffre_d'affaires"]):
         tooltip="CHIFFRE D'AFFAIRES"
     ).add_to(map)
     
-
     
     
 st_folium(map, width =725) # afficher la carte
@@ -206,5 +205,5 @@ hide_st_style = """
             """ 
 st.markdown(hide_st_style, unsafe_allow_html= True) 
 
-# pour lancer l'appli en local 
+# pour lancer l'appli en local executer dans le terminale le code suivant : python -m streamlit run streamlit_app.py
 
