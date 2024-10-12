@@ -92,3 +92,82 @@ with right_column:
     st.subheader(f"EURO € {marge_brute}")
     
 st.markdown("""___""") 
+
+# CHARTS 
+
+Quantité_vendue_par_produit = df_selection.groupby(by=["Produits"])[["Quantité_vendue"]].sum().sort_values(by="Quantité_vendue")
+fig_quantité_vendue_par_produit = px.bar(
+    Quantité_vendue_par_produit,
+    x="Quantité_vendue",
+    y= Quantité_vendue_par_produit.index,
+    orientation ="h",
+    title="<b>Quantité vendue par produit</b>",
+    color_discrete_sequence =["#0083B8"] * len(Quantité_vendue_par_produit),
+    template ="plotly_white",
+)
+
+fig_quantité_vendue_par_produit.update_layout(
+    plot_bgcolor ="rgba(0,0,0,0)",
+    xaxis= (dict(showgrid=False))
+)
+
+fig_comparaison_CA =px.bar(
+    df_selection,
+    x= "Produits",
+    y= ["CA produits", "CA objectifs"],
+    barmode="group",
+    labels={"value": "Chiffre d'Affaires", "variable": "Type"},
+    title="<b>CA produits vs CA objectifs</b>",
+)
+
+fig_comparaison_CA.update_layout(
+    xaxis=dict(tickmode="linear"),
+    plot_bgcolor ="rgba(0,0,0,0)",
+    yaxis=(dict(showgrid=False)),
+)
+    
+    
+fig3_pourcentage_produit =px.bar(
+    df_selection,
+    x= "Produits",
+    y="% actuel",
+    title="<b>Objectifs atteints par produit</b>",
+    labels ={"% actuel": "%Objectifs atteints"}
+)
+fig3_pourcentage_produit.update_layout(
+    xaxis= dict(tickmode="linear"),
+    plot_bgcolor="rgba(0,0,0,0)",
+    yaxis= (dict(showgrid =False)),
+)
+
+revenu_brut_par_produit = df_selection.groupby(by=["Produits"])[["Revenu_brut_pa_produit"]].sum() 
+fig_col_revenu_brut = px.bar(
+    revenu_brut_par_produit.reset_index(),  # Réinitialisation de l'index pour accéder à la colonne 'Produits'
+    x="Produits",                           # Utilisez la colonne 'Produits' pour l'axe X
+    y="Revenu_brut_pa_produit",             # Axe Y
+    title="<b>Revenu brut par produit</b>",
+    color_discrete_sequence=["#0083B8"] * len(revenu_brut_par_produit),  # Correction de l'erreur de frappe
+    template="plotly_dark"
+)
+
+fig_col_revenu_brut.update_xaxes(title="Produits")
+fig_col_revenu_brut.update_yaxes(title="Revenu brut")
+fig_col_revenu_brut.update_layout(
+    xaxis=dict(tickmode="linear"),
+    plot_bgcolor="rgba(0,0,0,0)",
+    yaxis=(dict(showgrid =False)),
+)
+    
+left_column, right_column = st.columns(2)
+left_column.plotly_chart(fig_comparaison_CA, use_container_width=True)
+right_column.plotly_chart(fig3_pourcentage_produit, use_container_width=True)
+
+
+left_column2,right_column2 = st.columns(2)
+left_column2.plotly_chart(fig_quantité_vendue_par_produit, use_container_width=True)
+right_column2.plotly_chart(fig_col_revenu_brut, use_container_width=True) 
+
+    
+    
+    
+
