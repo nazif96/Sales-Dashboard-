@@ -74,21 +74,21 @@ st.markdown("##")
 
 
 # KPIs 
-chiffre_daffaire_totale = int(df_selection["Chiffre_d'affaire"].sum())
+chiffre_daffaire_total = int(df_selection["Chiffre_d'affaires"].sum())
 cout_total_de_production = int(df_selection["Cout_total"].sum())
-marge_brute = chiffre_daffaire_totale - cout_total_de_production 
+marge_brute = chiffre_daffaire_total - cout_total_de_production 
 
 left_column, middle_column, right_column = st.columns(3) 
 with left_column:
-    st.subheader("Chiffre d'affaire:")
+    st.subheader("Chiffre d'affaires:")
     st.subheader(f"EURO € {chiffre_daffaire_total:,}")
 
 with middle_column:
     st.subheader("Coût production:")
-    st.subheader(f"EURO € {cout_total_de_production:,}")
+    st.subheader(f"EURO € {cout_total_de_production}")
 
 with right_column:
     st.subheader("Marge brute:")
-    st.subheader(f"EURO € {marge_brute:,}")
+    st.subheader(f"EURO € {marge_brute}")
     
 st.markdown("""___""") 
