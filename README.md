@@ -5,5 +5,6 @@ Conception et développement d'un tableau de bord avec `streamlit` offrant une v
 Analyse détaillée des ventes par produit et par ville, avec un suivi des performances par rapport aux objectifs de chiffre d'affaires
 
 Pour observer l'application :
+
 1- Cloner le repositoire en local  
 2- Lancer l'apllication avec `streamlit run Streamlit_app.py` sur le terminale 
